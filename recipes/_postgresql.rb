@@ -20,9 +20,7 @@ node.set['postgresql']['password']['postgres'] = node['postgresql']['database_ro
 node.set['postgresql']['config']['listen_addresses'] = node['postgresql']['config']['listen_addresses']
 
 node.set['postgresql']['pg_hba'] =[]
-
 node['chef-postgresql']['pg_hba'].each_index do |index|
-
    node.set['postgresql']['pg_hba'][index] = {
       :type => node['chef-postgresql']['pg_hba'][index]['type'],
       :db => node['chef-postgresql']['pg_hba'][index]['db'],
