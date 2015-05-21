@@ -19,6 +19,9 @@
 node.set['postgresql']['password']['postgres'] = node['postgresql']['database_root_password']
 node.set['postgresql']['config']['listen_addresses'] = node['postgresql']['config']['listen_addresses']
 
+node.set['postgresql']['config_pgtune']['db_type'] = node['chef-postgresql']['config_pgtune']['db_type']
+node.set['postgresql']['config_pgtune']['max_connections'] = node['chef-postgresql']['config_pgtune']['max_connections']
+
 node.set['postgresql']['pg_hba'] =[]
 node['chef-postgresql']['pg_hba'].each_index do |index|
    node.set['postgresql']['pg_hba'][index] = {
@@ -33,6 +36,9 @@ end
 
 # install the database software
 include_recipe 'postgresql::server'
+
+# Tune de database
+include_recipe 'postgresql::config_pgtune'
 
 # create the database
 include_recipe 'database::postgresql'
